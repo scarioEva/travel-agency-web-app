@@ -8,8 +8,9 @@ import {
   Routes,
   useLocation,
 } from "react-router-dom";
-import Details from "../pages/details";
 import Home from "../pages/home";
+import { Booking } from "../pages/booking";
+import { MyBookings } from "../pages/MyBookings";
 
 const RouteController = ({ localLoggedIn }) => {
   return (
@@ -17,14 +18,10 @@ const RouteController = ({ localLoggedIn }) => {
       <Routes>
         <Route path="/" element={<Home />} />
 
+        <Route path={"/booking"} element={<PublicRoute Comp={Booking} />} />
         <Route
-          path={"/details"}
-          element={
-            <PublicRoute
-              Comp={Details}
-              //userData={localStorageAuth}
-            />
-          }
+          path={"/my-bookings"}
+          element={<PublicRoute Comp={MyBookings} />}
         />
       </Routes>
     </>
