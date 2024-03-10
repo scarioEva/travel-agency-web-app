@@ -3,7 +3,7 @@ import axios from "../api/axios";
 import { Checkbox, CircularProgress, Radio } from "@mui/material";
 import { ColorRing, Oval } from "react-loader-spinner";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { setBookingId, setFlightId } from "../redux/actions/list";
 import { FlightList } from "../components/flightList";
 

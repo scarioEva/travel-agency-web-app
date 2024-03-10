@@ -11,3 +11,17 @@ export const setBookingId = (data) => {
     payload: data,
   };
 };
+
+export const setLocationObj = (data) => {
+  return {
+    type: "SET_LOCATION_OBJ",
+    payload: data,
+  };
+};
+
+export const setCurrencyData = (data) => {
+  return {
+    type: "SET_CURRENCY_DATA",
+    payload: data,
+  };
+};

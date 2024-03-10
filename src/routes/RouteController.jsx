@@ -11,6 +11,9 @@ import {
 import Home from "../pages/home";
 import { Booking } from "../pages/booking";
 import { MyBookings } from "../pages/MyBookings";
+import { Direction } from "../pages/Direction";
+import { DestInfo } from "../pages/DestInfo";
+import { Dashboard } from "../pages/dashboard";
 
 const RouteController = ({ localLoggedIn }) => {
   return (
@@ -23,6 +26,15 @@ const RouteController = ({ localLoggedIn }) => {
           path={"/my-bookings"}
           element={<PublicRoute Comp={MyBookings} />}
         />
+        <Route
+          path={"/alternate-route"}
+          element={<PublicRoute Comp={Direction} />}
+        />
+        <Route
+          path={"/destination-information"}
+          element={<PublicRoute Comp={DestInfo} />}
+        />
+        <Route path={"/dashboard"} element={<PublicRoute Comp={Dashboard} />} />
       </Routes>
     </>
   );

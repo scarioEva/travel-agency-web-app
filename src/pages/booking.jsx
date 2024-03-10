@@ -7,7 +7,11 @@ import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { ModalStatus } from "../components/ModalStatus";
 import { useNavigate } from "react-router-dom";
-import { setBookingId, setFlightId } from "../redux/actions/list";
+import {
+  setBookingId,
+  setFlightId,
+  setLocationObj,
+} from "../redux/actions/list";
 
 export const Booking = () => {
   const flight_id = useSelector(
@@ -17,6 +21,11 @@ export const Booking = () => {
 
   const booking_id = useSelector(
     (state) => state?.listReducer?.booking_id,
+    shallowEqual
+  );
+
+  const selectedCur = useSelector(
+    (state) => state?.listReducer?.currency_data,
     shallowEqual
   );
 
@@ -139,6 +148,15 @@ export const Booking = () => {
     }
   };
 
+  const redirectDirection = (route) => {
+    dispatch(
+      setLocationObj({
+        ...{ from: flightData?.origin_city, to: flightData?.destination_city },
+      })
+    );
+    navigate(route ? "/alternate-route" : "/destination-information");
+  };
+
   return (
     <>
       <ModalStatus
@@ -247,7 +265,13 @@ export const Booking = () => {
             </Typography>
             <div className="flex mt-3 items-center justify-between">
               <div className="text-gray-500">Flight price</div>
-              <div className="text-gray-500">{flightData?.price}</div>
+              <div className="text-gray-500">
+                {selectedCur?.c_symbol +
+                  " " +
+                  (flightData?.price * parseFloat(selectedCur?.c_rate)).toFixed(
+                    2
+                  )}
+              </div>
             </div>
             <div className="flex items-center mt-1 justify-between">
               <div className="text-gray-500">Total passengers</div>
@@ -256,7 +280,13 @@ export const Booking = () => {
             <div className="flex items-center mt-2 justify-between border-t border-t-400 pt-2 ">
               <div className="font-bold">Total price</div>
               <div className="font-bold">
-                {flightData?.price * personsData?.length}
+                {selectedCur?.c_symbol +
+                  " " +
+                  (
+                    flightData?.price *
+                    parseFloat(selectedCur?.c_rate) *
+                    personsData?.length
+                  ).toFixed(2)}
               </div>
             </div>
           </div>
@@ -288,6 +318,24 @@ export const Booking = () => {
                 Checkout
               </button>
             </div>
+          </div>
+          <div className="mt-4 shadow-xl border border-gray-100 p-4 rounded-lg  text-center">
+            <span className="block">Want alternate route?</span>
+            <button
+              className="bg-blue-500 hover:bg-blue-800 mt-3 px-4 py-1 text-white rounded-full"
+              onClick={() => redirectDirection(true)}
+            >
+              Show me!
+            </button>
+          </div>
+          <div className="mt-4 shadow-xl border border-gray-100 p-4 rounded-lg  text-center">
+            <span className="block">More details about your destination</span>
+            <button
+              className="bg-blue-500 hover:bg-blue-800 mt-3 px-4 py-1 text-white rounded-full"
+              onClick={() => redirectDirection(false)}
+            >
+              Show me!
+            </button>
           </div>
         </div>
       </div>

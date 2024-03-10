@@ -1,3 +1,5 @@
+import { shallowEqual, useSelector } from "react-redux";
+
 export const FlightList = ({
   itm,
   idx = 0,
@@ -7,6 +9,11 @@ export const FlightList = ({
   hover = false,
   onBooking = () => {},
 }) => {
+  const selectedCur = useSelector(
+    (state) => state?.listReducer?.currency_data,
+    shallowEqual
+  );
+
   console.log(itm);
   return (
     <>
@@ -75,7 +82,9 @@ export const FlightList = ({
         {button && (
           <>
             <td className={`text-center pb-3 ${idx == 0 ? "pt-3" : ""}`}>
-              {itm?.price}
+              {selectedCur?.c_symbol +
+                " " +
+                (itm?.price * parseFloat(selectedCur?.c_rate)).toFixed(2)}
             </td>
 
             <td>

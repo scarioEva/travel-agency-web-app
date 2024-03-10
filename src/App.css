@@ -3,3 +3,21 @@
   padding: 0px;
   transition: 0.3s ease-in-out;
 }
+
+.custom-slider .slider-wrapper {
+  /* height: 50vh !important; */
+}
+.custom-slider .slide img {
+  height: 100%;
+  object-fit: cover;
+  object-position: bottom;
+}
+
+.custom-slider .thumbs-wrapper {
+  margin: 20px 0px !important;
+}
+.custom-slider .thumb img {
+  height: 50px;
+  object-fit: cover;
+  object-position: bottom;
+}
